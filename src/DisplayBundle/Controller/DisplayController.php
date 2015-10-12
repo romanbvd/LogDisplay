@@ -15,12 +15,11 @@ class DisplayController extends Controller
     {
         $cache = $this->get('log_cacher');
 
-        $fileName = str_replace('username', 'roman', $this->getParameter('path'));
-        $pattern = $this->getParameter('log_pattern');
-
+        $filePath = str_replace('username', 'roman', $this->getParameter('path'));
+    
         $cacher = $this->get('log_cacher');
-        $cacher->execute();
-print_r($res);die;
+        $cacher->refreshCache($filePath);
+
         return $this->render('DisplayBundle:Display:index.html.twig', array(
             'var' => 's'));
     }

@@ -9,13 +9,20 @@
     </parameters>
 
     <services>
-        <service id="file_parser" class="DisplayBundle\Scaners\FileScaner">
+        <service id="file_scaner" class="DisplayBundle\Scaners\FileScaner">
+            <argument></argument>
+        </service>
+        <service id="dir_scaner" class="DisplayBundle\Scaners\DirScaner">
             <argument></argument>
         </service>
         <service id="log_collector" class="DisplayBundle\Collectors\LogLineCollector">
-            <argument type="service" id="file_parser"/>
+            <argument type="service" id="file_scaner"/>
+        </service>
+        <service id="file_collector" class="DisplayBundle\Collectors\LogFileCollector">
+            <argument type="service" id="dir_scaner"/>
         </service>
         <service id="log_cacher" class="DisplayBundle\Cacher\LogCacher">
+            <argument type="service" id="file_collector"></argument>
             <argument type="service" id="log_collector"></argument>
         </service>
     </services>

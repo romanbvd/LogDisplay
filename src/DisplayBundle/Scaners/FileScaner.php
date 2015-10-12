@@ -22,7 +22,6 @@ class FileScaner
 
     private function parse(Array $lines)
     {
-
         $logArray = new \SplFixedArray(count($lines));
         
         for($i = 0; $i < count($lines); $i++){

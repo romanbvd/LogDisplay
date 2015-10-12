@@ -10,16 +10,20 @@ class LogCacher
     private $localFiles = array();
 
     private $logCollector = null;
+    private $fileCollector = null;
 
-    public function __construct(LogLineCollector $logCollector)
+    public function __construct(LogFileCollector $fileCollector, LogLineCollector $logCollector)
     {
         $this->logCollector = $logCollector;
+        $this->fileCollector = $fileCollector;
+        
         $this->cachedFiles = $this->getCachedLocalFiles();
         $this->localFiles = $this->getLocalFiles();
     }
 
-    public function refreshCache()
+    public function refreshCache($path)
     {
+        echo "<pre>";print_r($files);echo "<pre>";die;
         foreach($this->localFiles as $fileDescription){
             if(!$this->isFileExistsInCache($fileDescription)){
                 $this->addToChache($fileDescription);
