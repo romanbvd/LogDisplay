@@ -21,7 +21,7 @@ class LogLineCollector
 
     public function getCollection($file)
     {
-        $pattern = '/\[(.*)]\ \[(.*)]\ (.*)/';
+        $pattern = '/\[(.*)]\ \[(.*)]\ (.*)$/U';
         $lines = $this->scaner->scanFile($file, $pattern);
         
         return $this->createLogCollection($lines); 
