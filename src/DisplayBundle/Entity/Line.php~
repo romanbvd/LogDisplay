@@ -1,0 +1,54 @@
+<?php
+
+namespace DisplayBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Line
+ *
+ * @ORM\Table(name="Line")
+ * @ORM\Entity
+ */
+class Line
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_file", type="integer", nullable=true)
+     */
+    private $idFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="log_info", type="text", length=65535, nullable=true)
+     */
+    private $logInfo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

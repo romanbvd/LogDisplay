@@ -5,26 +5,33 @@ namespace DisplayBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Log
+ * File
  *
- * @ORM\Table(name="Log")
+ * @ORM\Table(name="File")
  * @ORM\Entity
  */
-class Log
+class File
 {
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="type", type="string", length=10, nullable=true)
+     * @ORM\Column(name="id_user", type="integer", nullable=true)
      */
-    private $type;
+    private $idUser;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="log_info", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
-    private $logInfo;
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=256, nullable=true)
+     */
+    private $path;
 
     /**
      * @var \DateTime
@@ -45,51 +52,75 @@ class Log
 
 
     /**
-     * Set type
+     * Set idUser
      *
-     * @param string $type
+     * @param integer $idUser
      *
-     * @return Log
+     * @return File
      */
-    public function setType($type)
+    public function setIdUser($idUser)
     {
-        $this->type = $type;
+        $this->idUser = $idUser;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get idUser
      *
-     * @return string
+     * @return integer
      */
-    public function getType()
+    public function getIdUser()
     {
-        return $this->type;
+        return $this->idUser;
     }
 
     /**
-     * Set logInfo
+     * Set name
      *
-     * @param string $logInfo
+     * @param string $name
      *
-     * @return Log
+     * @return File
      */
-    public function setLogInfo($logInfo)
+    public function setName($name)
     {
-        $this->logInfo = $logInfo;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get logInfo
+     * Get name
      *
      * @return string
      */
-    public function getLogInfo()
+    public function getName()
     {
-        return $this->logInfo;
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return File
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
@@ -97,7 +128,7 @@ class Log
      *
      * @param \DateTime $date
      *
-     * @return Log
+     * @return File
      */
     public function setDate($date)
     {
