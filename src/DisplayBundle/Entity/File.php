@@ -49,6 +49,20 @@ class File
      */
     private $id;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="DisplayBundle\Entity\Line", mappedBy="file")
+     */
+    private $lines;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lines = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -155,5 +169,39 @@ class File
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add line
+     *
+     * @param \DisplayBundle\Entity\Line $line
+     *
+     * @return File
+     */
+    public function addLine(\DisplayBundle\Entity\Line $line)
+    {
+        $this->lines[] = $line;
+
+        return $this;
+    }
+
+    /**
+     * Remove line
+     *
+     * @param \DisplayBundle\Entity\Line $line
+     */
+    public function removeLine(\DisplayBundle\Entity\Line $line)
+    {
+        $this->lines->removeElement($line);
+    }
+
+    /**
+     * Get lines
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLines()
+    {
+        return $this->lines;
     }
 }

@@ -49,6 +49,16 @@ class Line
      */
     private $id;
 
+    /**
+     * @var \DisplayBundle\Entity\File
+     *
+     * @ORM\ManyToOne(targetEntity="DisplayBundle\Entity\File", inversedBy="lines")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="file_id", referencedColumnName="id")
+     * })
+     */
+    private $file;
+
 
 
     /**
@@ -155,5 +165,58 @@ class Line
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set file
+     *
+     * @param \DisplayBundle\Entity\File $file
+     *
+     * @return Line
+     */
+    public function setFile(\DisplayBundle\Entity\File $file = null)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return \DisplayBundle\Entity\File
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    /**
+     * @var integer
+     */
+    private $fileId;
+
+
+    /**
+     * Set fileId
+     *
+     * @param integer $fileId
+     *
+     * @return Line
+     */
+    public function setFileId($fileId)
+    {
+        $this->fileId = $fileId;
+
+        return $this;
+    }
+
+    /**
+     * Get fileId
+     *
+     * @return integer
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
     }
 }
