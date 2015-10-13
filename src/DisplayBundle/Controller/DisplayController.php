@@ -14,11 +14,10 @@ class DisplayController extends Controller
     public function indexAction(Request $request)
     {
         $cache = $this->get('log_cacher');
-
-        $filePath = str_replace('username', 'roman', $this->getParameter('path'));
+        
     
         $cacher = $this->get('log_cacher');
-        $cacher->refreshCache($filePath);
+        $cacher->refreshCache();
 
         return $this->render('DisplayBundle:Display:index.html.twig', array(
             'var' => 's'));

@@ -30,20 +30,25 @@ class LogCacher
         $path = str_replace('#username#', 'romanbvd', $this->path);
 
         $fileCollection = $this->fileCollector->getCollection($path);
-        $lineCollection = $this->lineCollector->getCollection($path . 'error.log');
-
-        foreach($lineCollection as $line){
-            $this->em->persist($line);
+        foreach($fileCollection as $file){
+            $this->em->persist($file);    
+            
+            $this->saveFileLines($file);
         }
 
         $this->em->flush();
 die;
-        foreach($fileCollection as $file){
-            $this->em->persist($file);
-        }
-
-        $this->em->flush();
-
+       
         return 'hellos';
+    }
+
+    private function saveFileLines($fileObj)
+    {
+        $lineCollection = $this->lineCollector->getCollection($fileObj->getPath());
+        foreach($lineCollection as $line){ 
+            $line->setFile($fileObj);
+            
+            $this->em->persist($line); 
+        }
     }
 }
