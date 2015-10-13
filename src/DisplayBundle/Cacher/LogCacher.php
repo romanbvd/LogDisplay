@@ -2,45 +2,48 @@
 
 namespace DisplayBundle\Cacher;
 
+use Doctrine\ORM\EntityManager;
 use DisplayBundle\Collectors\LogLineCollector;
+use DisplayBundle\Collectors\LogFileCollector;
 
 class LogCacher
 {
-    private $cachedFiles = array();
-    private $localFiles = array();
+    private $path = '';
 
-    private $logCollector = null;
+    private $em = null;
+
+    private $lineCollector = null;
     private $fileCollector = null;
 
-    public function __construct(LogFileCollector $fileCollector, LogLineCollector $logCollector)
+    public function __construct(EntityManager $manager, LogFileCollector $fileCollector, LogLineCollector $lineCollector, $path)
     {
-        $this->logCollector = $logCollector;
+        $this->path = $path;
+
+        $this->em = $manager;
+
+        $this->lineCollector = $lineCollector;
         $this->fileCollector = $fileCollector;
-        
-        $this->cachedFiles = $this->getCachedLocalFiles();
-        $this->localFiles = $this->getLocalFiles();
     }
 
-    public function refreshCache($path)
+    public function refreshCache()
     {
-        echo "<pre>";print_r($files);echo "<pre>";die;
-        foreach($this->localFiles as $fileDescription){
-            if(!$this->isFileExistsInCache($fileDescription)){
-                $this->addToChache($fileDescription);
-            }
+        $path = str_replace('#username#', 'romanbvd', $this->path);
 
-            if(!$this->isDateChangeTheSame($fileDescription)){
-                $this->updateCache($fileDescription);
-            }
+        $fileCollection = $this->fileCollector->getCollection($path);
+        $lineCollection = $this->lineCollector->getCollection($path . 'error.log');
+
+        foreach($lineCollection as $line){
+            $this->em->persist($line);
         }
+
+        $this->em->flush();
+die;
+        foreach($fileCollection as $file){
+            $this->em->persist($file);
+        }
+
+        $this->em->flush();
+
         return 'hellos';
-    }
-
-    private function getLocalFiles()
-    {
-    }
-
-    private function getCachedLocalFiles()
-    {
     }
 }

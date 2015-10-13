@@ -3,7 +3,12 @@
 namespace DisplayBundle\Collectors;
 
 use DisplayBundle\Scaners\FileScaner;
-use DisplayBundle\Entity\Log;
+use DisplayBundle\Entity\Line;
+
+/**
+ *  Class generates collection of Line objects
+ *  which ready to persists to database via Doctrine
+ */
 
 class LogLineCollector
 {
@@ -25,13 +30,13 @@ class LogLineCollector
     private function createLogCollection($lines)
     {
         for($i = 0; $i < count($lines); $i++){
-            $log = new Log();
+            $lineObj = new Line();
 
-            $log->setType($this->prepareType($lines[$i]));
-            $log->setLogInfo($this->prepareInfo($lines[$i]));
-            $log->setDate($this->prepareDate($lines[$i]));
+            $lineObj->setType($this->prepareType($lines[$i]));
+            $lineObj->setLogInfo($this->prepareInfo($lines[$i]));
+            $lineObj->setDate($this->prepareDate($lines[$i]));
 
-            $lines[$i] = $log;
+            $lines[$i] = $lineObj;
         }
 
         return $lines;
@@ -52,9 +57,7 @@ class LogLineCollector
     {
         $date = isset($logArray[1]) ? $logArray[1] : '';
         
-        $date = \DateTime::createFromFormat('D M d H:i:s Y' , $date);
-        
-        return $date->format('Y-m-d H:i:s');
+        return \DateTime::createFromFormat('D M d H:i:s Y' , $date);
     }
 }
  

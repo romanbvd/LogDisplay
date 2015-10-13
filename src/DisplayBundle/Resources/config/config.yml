@@ -1,2 +1,2 @@
 parameters:
-    path: '/home/username/logs/' 
+    path: '/home/#username#/logs/' 

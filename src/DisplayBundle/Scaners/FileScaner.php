@@ -2,6 +2,12 @@
 
 namespace DisplayBundle\Scaners;
 
+/**
+ * File Scaner
+ * Class which reads file to array, parse each line by pattern
+ * and then puts lines to fixed array
+ */
+
 class FileScaner
 {
     private $pattern = '';

@@ -2,12 +2,18 @@
 
 namespace DisplayBundle\Scaners;
 
+/**
+ * Dir Scaner
+ * Class which reads directory to array, finds files,
+ * gets info about it and put it to fixed array
+ */
+
 class DirScaner
 {
     protected $dir = '';
     public function scanDir($directory)
     {
-        $this->dir = $directory;
+        $this->dir = $directory . '/';
         $files = $this->getFiles();
  
         return $this->analizeFiles($files);
@@ -20,8 +26,7 @@ class DirScaner
 
     private function analizeFiles($files)
     {
-        array_shift($files); 
-        array_shift($files);
+        $files = $this->filterFiles($files);
 
         $fileArray = new \SplFixedArray(count($files));
         
@@ -32,13 +37,29 @@ class DirScaner
         return $fileArray;
     }
 
+    private function filterFiles($files)
+    {
+        $filteredFiles = array();
+
+        foreach($files as $file){
+            if(!is_file($this->dir . $file) || !is_readable($this->dir . $file)){
+                continue;
+            }
+
+            $filteredFiles[] = $file;
+        }
+
+        return $filteredFiles;
+    }
+
     private function getFileInfo($file)
     {
+        $info = stat($this->dir . $file);
+
         return array(
             'name' => $file,
             'location' => $this->dir . $file,
-            'modified' => filemtime($this->dir . $file)
-        );
+        ) + $info;
     }
 
 }

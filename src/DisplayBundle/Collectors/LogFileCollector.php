@@ -5,6 +5,11 @@ namespace DisplayBundle\Collectors;
 use DisplayBundle\Scaners\DirScaner;
 use DisplayBundle\Entity\File;
 
+/**
+ *  Class generates collection of File objects
+ *  which ready to persists to database via Doctrine
+ */
+
 class LogFileCollector
 {
     private $scaner = null;
@@ -21,23 +26,24 @@ class LogFileCollector
         return $this->createFileCollection($files); 
     }
 
-    private function createDirCollection($files)
+    private function createFileCollection($files)
     {
         for($i = 0; $i < count($files); $i++){
-            $log = new File();
+            $fileObj = new File();
 
-            $log->setName($files['name']);
-            $log->setPath($files['location']);
-            $log->setDate($this->prepareDate($files['modified']));
+            $fileObj->setName($files[$i]['name']);
+            $fileObj->setPath($files[$i]['location']);
+            $fileObj->setDate($this->prepareDate($files[$i]['mtime']));
 
-            $lines[$i] = $log;
+            $files[$i] = $fileObj;
         }
 
-        return $lines;
+        return $files;
     }
 
     private function prepareDate($timestamp)
     {
-        return date('Y-m-d H:i:s', $timestamp);
+        $dateTime = new \DateTime();
+        return $dateTime->setTimestamp($timestamp);
     }
 }
