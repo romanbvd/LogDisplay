@@ -21,6 +21,7 @@
             <argument type="service" id="file_collector"></argument>
             <argument type="service" id="log_collector"></argument>
             <argument>%path%</argument>
+            <argument>%cache_refresh%</argument>
         </service>
     </services>
         

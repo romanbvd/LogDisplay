@@ -9,15 +9,17 @@ use DisplayBundle\Collectors\LogFileCollector;
 class LogCacher
 {
     private $path = '';
+    private $refresh_interval = 0;
 
     private $em = null;
 
     private $lineCollector = null;
     private $fileCollector = null;
 
-    public function __construct(EntityManager $manager, LogFileCollector $fileCollector, LogLineCollector $lineCollector, $path)
+    public function __construct(EntityManager $manager, LogFileCollector $fileCollector, LogLineCollector $lineCollector, $path, $refresh)
     {
         $this->path = $path;
+        $this->refresh_interval = $refresh;
 
         $this->em = $manager;
 
@@ -27,7 +29,11 @@ class LogCacher
 
     public function refreshCache()
     {
-        $path = str_replace('#username#', 'romanbvd', $this->path);
+        if(!$this->isNeedRefresh()){
+            return true;
+        }
+
+        $path = str_replace('#username#', 'roman', $this->path);
 
         $fileCollection = $this->fileCollector->getCollection($path);
         foreach($fileCollection as $file){
@@ -40,6 +46,26 @@ class LogCacher
 die;
        
         return 'hellos';
+    }
+
+    private function isNeedRefresh()
+    {echo 'f';die;
+        $cache = $this->em->getRepository('DisplayBundle:Cache')->find(1);
+        
+        $previousDate = $cache->getModified();
+        $previousDate = $previousDate->add(new \DateInterval('PT' . $this->refresh_interval .'S'));
+        
+        $currentDate = new \DateTime();
+
+        $cache->setModified($currentDate);
+
+        $this->em->flush();
+
+        if(($currentDate->getTimestamp() - $previousDate->getTimestamp()) > $this->refresh_interval){
+            return true;
+        }
+
+        return false;
     }
 
     private function saveFileLines($fileObj)
