@@ -29,11 +29,11 @@ class LogCacher
 
     public function refreshCache()
     {
-        if(!$this->isNeedRefresh()){
+        if(!$this->isNeedRefresh()){echo 'no';
             return true;
         }
-
-        $path = str_replace('#username#', 'roman', $this->path);
+echo 'yes';
+        $path = str_replace('#username#', 'romanbvd', $this->path);
 
         $fileCollection = $this->fileCollector->getCollection($path);
         foreach($fileCollection as $file){
@@ -49,19 +49,16 @@ die;
     }
 
     private function isNeedRefresh()
-    {echo 'f';die;
+    {
         $cache = $this->em->getRepository('DisplayBundle:Cache')->find(1);
-        
         $previousDate = $cache->getModified();
-        $previousDate = $previousDate->add(new \DateInterval('PT' . $this->refresh_interval .'S'));
         
         $currentDate = new \DateTime();
 
-        $cache->setModified($currentDate);
-
-        $this->em->flush();
-
         if(($currentDate->getTimestamp() - $previousDate->getTimestamp()) > $this->refresh_interval){
+            $cache->setModified($currentDate);
+            $this->em->flush();
+            
             return true;
         }
 
