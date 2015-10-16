@@ -2,32 +2,20 @@
 
 namespace DisplayBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Cache
- *
- * @ORM\Table(name="Cache")
- * @ORM\Entity
  */
 class Cache
 {
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="modified", type="datetime", nullable=false)
      */
     private $modified = 'CURRENT_TIMESTAMP';
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
 
 
     /**
@@ -64,3 +52,4 @@ class Cache
         return $this->id;
     }
 }
+

@@ -2,87 +2,64 @@
 
 namespace DisplayBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Line
- *
- * @ORM\Table(name="Line")
- * @ORM\Entity
  */
 class Line
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id_file", type="integer", nullable=true)
      */
-    private $idFile;
+    private $fileId;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=10, nullable=true)
      */
     private $type;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="log_info", type="text", length=65535, nullable=true)
      */
     private $logInfo;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private $date;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \DisplayBundle\Entity\File
-     *
-     * @ORM\ManyToOne(targetEntity="DisplayBundle\Entity\File", inversedBy="lines")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="file_id", referencedColumnName="id")
-     * })
      */
     private $file;
 
 
-
     /**
-     * Set idFile
+     * Set fileId
      *
-     * @param integer $idFile
+     * @param integer $fileId
      *
      * @return Line
      */
-    public function setIdFile($idFile)
+    public function setFileId($fileId)
     {
-        $this->idFile = $idFile;
+        $this->fileId = $fileId;
 
         return $this;
     }
 
     /**
-     * Get idFile
+     * Get fileId
      *
      * @return integer
      */
-    public function getIdFile()
+    public function getFileId()
     {
-        return $this->idFile;
+        return $this->fileId;
     }
 
     /**
@@ -190,33 +167,5 @@ class Line
     {
         return $this->file;
     }
-    /**
-     * @var integer
-     */
-    private $fileId;
-
-
-    /**
-     * Set fileId
-     *
-     * @param integer $fileId
-     *
-     * @return Line
-     */
-    public function setFileId($fileId)
-    {
-        $this->fileId = $fileId;
-
-        return $this;
-    }
-
-    /**
-     * Get fileId
-     *
-     * @return integer
-     */
-    public function getFileId()
-    {
-        return $this->fileId;
-    }
 }
+
