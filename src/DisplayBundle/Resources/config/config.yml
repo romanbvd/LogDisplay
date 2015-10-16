@@ -1,5 +1,5 @@
 parameters:
     #path where user's log foles located
-    path: '/home/#username#/logs/'
+    path: '/home/roman/logs/'
     #interval in seconds for cache refresh
     cache_refresh: 60

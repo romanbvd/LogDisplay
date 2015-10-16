@@ -5,7 +5,7 @@
         field="file"
         target-entity="File"
         inversed-by="lines"
-        join-column="id_file"/>
+        join-column="file_id"/>
     <join-column name="file_id" referenced-column-name="id" />
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
