@@ -33,7 +33,7 @@ class LogLineCollector
             $lineObj = new Line();
 
             $lineObj->setType($this->prepareType($lines[$i]));
-            $lineObj->setLogInfo($this->prepareInfo($lines[$i]));
+            $lineObj->setInfo($this->prepareInfo($lines[$i]));
             $lineObj->setDate($this->prepareDate($lines[$i]));
 
             $lines[$i] = $lineObj;

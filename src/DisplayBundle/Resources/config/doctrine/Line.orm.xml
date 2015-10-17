@@ -20,7 +20,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="logInfo" type="text" column="log_info" length="65535" nullable="true">
+    <field name="info" type="text" column="info" length="65535" nullable="true">
       <options>
         <option name="fixed"/>
       </options>

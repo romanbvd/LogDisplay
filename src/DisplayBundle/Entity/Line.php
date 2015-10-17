@@ -20,7 +20,7 @@ class Line
     /**
      * @var string
      */
-    private $logInfo;
+    private $info;
 
     /**
      * @var \DateTime
@@ -87,27 +87,27 @@ class Line
     }
 
     /**
-     * Set logInfo
+     * Set info
      *
-     * @param string $logInfo
+     * @param string $info
      *
      * @return Line
      */
-    public function setLogInfo($logInfo)
+    public function setInfo($info)
     {
-        $this->logInfo = $logInfo;
+        $this->info = $info;
 
         return $this;
     }
 
     /**
-     * Get logInfo
+     * Get info
      *
      * @return string
      */
-    public function getLogInfo()
+    public function getInfo()
     {
-        return $this->logInfo;
+        return $this->info;
     }
 
     /**
