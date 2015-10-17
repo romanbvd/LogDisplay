@@ -7,6 +7,26 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div>{{var}}</div>
+        <div>{{ pagination.getTotalItemCount }}</div>
+        <table>
+            <tr>
+            {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(pagination, 'Type', 'l.type') }}</th>
+                <th{% if pagination.isSorted('l.info') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Info', 'l.info') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Date', 'l.date') }}</th>
+            </tr>
+            {# table body #}
+            {% for line in pagination %}
+                <tr>
+                    <td style="border: 1px solid black;">{{ line.type }}</td>
+                    <td style="border: 1px solid black;">{{ line.info }}</td>
+                    <td style="border: 1px solid black;">{{ line.date | date('Y-m-d H-i-s') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </body>
 </html>
