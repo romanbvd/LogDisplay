@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container">
+            {{ include('DisplayBundle:display:filters.html.twig', {'search_form': search_form}) }}
+            {{ include('DisplayBundle:display:results.html.twig', {'pagination': pagination}) }}
+        </div> 
+    </body>
+</html>
