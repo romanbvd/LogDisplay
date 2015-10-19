@@ -16,24 +16,10 @@ class DisplayController extends Controller
         $cacher = $this->get('log_cacher');
         $cacher->refreshCache();
 
-        $form = $this->createFormBuilder()
-            ->add('user', 'text')
-            ->add('type', 'text')
-            ->add('availability', 'choice', array(
-                'choices' => array(
-                    'morning'   => 'Morning',
-                    'afternoon' => 'Afternoon',
-                    'evening'   => 'Evening',
-                ),
-                'multiple' => false,
-            ))
-            ->add('send', 'submit')
-            ->getForm();
-
+        $form = $this->createForm('filter');
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
             print_r($data);
         }

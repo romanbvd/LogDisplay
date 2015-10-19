@@ -23,6 +23,13 @@
             <argument>%path%</argument>
             <argument>%cache_refresh%</argument>
         </service>
+        <service id="filter_data" class="DisplayBundle\Form\FilterData">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+        <service id="type_task" class="DisplayBundle\Form\FilterType">
+            <argument type="service" id="filter_data" />
+            <tag name="form.type" alias="filter" />
+        </service>
     </services>
         
 </container>
