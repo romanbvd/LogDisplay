@@ -18,19 +18,12 @@ class FilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = null)
     {
         $builder
-            ->add('user', 'text')
-            ->add('type', 'text')
-            ->add('availability', 'choice', array(
-                'choices' => array(
-                    'morning'   => 'Morning',
-                    'afternoon' => 'Afternoon',
-                    'evening'   => 'Evening',
-                ),
-                'multiple' => false,
-            ))
+            ->add('search', 'text')
+            ->add('user', 'choice', $this->filterData->getUser(), array('multiple' => false))
+            ->add('type', 'choice', $this->filterData->getType(), array('multiple' => false))
+            ->add('startDate', 'date')
+            ->add('endDate', 'date')
             ->add('send', 'submit');
-
-        echo $this->filterData->getData();
     }
 
     public function getName()

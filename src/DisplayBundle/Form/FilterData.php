@@ -2,36 +2,39 @@
 
 namespace DisplayBundle\Form;
 
+use Doctrine\ORM\EntityManager;
+
 class FilterData
 {
-    public function __construct($mmm)
+    private $em = null;
+
+    public function __construct(EntityManager $manager)
     {
-        //print_r(get_class($mmm));
+        $this->em = $manager;
     }
     public function getUser()
     {
-        return 'mmm';
+        $users = $this->em->getRepository('DisplayBundle:User')->findAll();
+
+        $choices = array();
+        foreach($users as $user){
+            $choices[$user->getName()] = $user->getName();
+        }
+
+        return array(
+            'choices' => $choices   
+        );
     }
 
     public function getType()
     {
-        return 'lll';
+        return array(
+            'choices' => array(
+                'info' => 'Info',
+                'notice' => 'Notice',
+                'error' => 'Error'
+            )   
+        );
     }
-
-    public function getAvailability()
-    {
-        return array( 
-                'choices' => array(
-                    'morning'   => 'Morning',
-                    'afternoon' => 'Afternoon',
-                    'evening'   => 'Evening',
-            ));
-    }
-
-    public function setAvailability(ChoiceListInterface $choices)
-            {
-                        $this->choices = $choices;
-                                return $this;
-                            }
 
 }
